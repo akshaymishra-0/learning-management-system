@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import { useClerk, useUser, UserButton } from "@clerk/clerk-react";
+import { AppContext } from "../../context/AppContext";
 
 const Navbar = () => {
+  const { navigate, isEducator } = useContext(AppContext);
+
   const isCourseListPage = location.pathname.includes("/course-list");
   const { openSignIn } = useClerk();
   const { user } = useUser();
@@ -15,6 +18,7 @@ const Navbar = () => {
       }`}
     >
       <img
+        onClick={() => navigate("/")}
         src={assets.logo}
         alt="logo"
         className="w-28 lg:w-32 cursor-pointer"
@@ -24,8 +28,15 @@ const Navbar = () => {
         <div className="flex items-center gap-5">
           {user && (
             <>
-              <button>Become Educator</button> |
-              <Link to="/my-enrollments"> My Enrollments </Link>
+              <button
+                onClick={() => {
+                  navigate("/educator");
+                }}
+                className="cursor-pointer"
+              >
+                {isEducator ? "Educator Dashboard" : "Become Educator"}
+              </button>{" "}
+              |<Link to="/my-enrollments"> My Enrollments </Link>
             </>
           )}
         </div>
@@ -47,8 +58,15 @@ const Navbar = () => {
         <div className="flex items-center gap-1 sm:gap-2 max-sm:text-xs">
           {user && (
             <>
-              <button>Become Educator</button> |
-              <Link to="/my-enrollments"> My Enrollments </Link>
+              <button
+                onClick={() => {
+                  navigate("/educator");
+                }}
+                className="cursor-pointer"
+              >
+                {isEducator ? "Educator Dashboard" : "Become Educator"}
+              </button>{" "}
+              |<Link to="/my-enrollments"> My Enrollments </Link>
             </>
           )}
         </div>

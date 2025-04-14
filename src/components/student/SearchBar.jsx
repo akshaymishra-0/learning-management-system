@@ -6,7 +6,8 @@ const SearchBar = ({ data }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState(data ? data : "");
 
-  const onSearchHandler = (e) => { // Add e as a parameter
+  const onSearchHandler = (e) => {
+    // Add e as a parameter
     e.preventDefault(); // Prevent default form submission
     navigate("/course-list/" + input);
   };
